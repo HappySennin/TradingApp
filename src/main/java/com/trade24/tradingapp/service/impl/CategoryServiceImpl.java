@@ -24,4 +24,24 @@ public class CategoryServiceImpl implements CategoryService {
         categoryRepository.findAll().forEach(result::add);
         return result;
     }
+
+    @Override
+    public Category getById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void addCategory(Category category) {
+
+    }
+
+    @Override
+    public void updateCategory(Long id, Category category) {
+
+    }
+
+    @Override
+    public void deleteCategory(Long id) {
+
+    }
 }

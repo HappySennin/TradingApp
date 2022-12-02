@@ -21,7 +21,23 @@ public class CategoryController {
     }
 
     @GetMapping("")
-    public List<Category> getCategories() {
+    public List<Category> getAll() {
         return categoryService.getAll();
+    }
+
+    Category getById(Long id) {
+        return null;
+    }
+
+    void addCategory(Category category) {
+
+    }
+
+    void updateCategory(Long id, Category category) {
+
+    }
+
+    void deleteCategory(Long id) {
+
     }
 }

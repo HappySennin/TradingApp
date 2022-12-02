@@ -7,27 +7,27 @@ import lombok.Setter;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
+@Table(name = "items")
 @Getter
 @Setter
-public class User {
+public class Item {
     @Id
     @GeneratedValue
     private Long id;
 
     private String name;
 
-    private String surname;
+    private String description;
 
-    private String email;
+    private String imageUrl;
 
-    private String phoneNumber;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
-    private String password;
-
-    private Date created;
+    private Date addedDate;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private Address address;
+    private User owner;
 }

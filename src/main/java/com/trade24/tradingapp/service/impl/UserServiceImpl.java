@@ -2,6 +2,7 @@ package com.trade24.tradingapp.service.impl;
 
 import com.trade24.tradingapp.entity.User;
 import com.trade24.tradingapp.repository.UserRepository;
+import com.trade24.tradingapp.service.AddressService;
 import com.trade24.tradingapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,15 +11,26 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final AddressService addressService;
 
     @Autowired
-    public UserServiceImpl (UserRepository userRepository) {
+    public UserServiceImpl (UserRepository userRepository, AddressService addressService) {
         this.userRepository = userRepository;
+        this.addressService = addressService;
     }
 
     @Override
-    public User store(User user) {
-        // TODO: hash password before store
-        return userRepository.save(user);
+    public void addUser(User user) {
+
+    }
+
+    @Override
+    public void updateUser(Long id, User user) {
+
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+
     }
 }

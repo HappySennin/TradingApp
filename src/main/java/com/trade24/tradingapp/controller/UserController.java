@@ -3,7 +3,7 @@ package com.trade24.tradingapp.controller;
 import com.trade24.tradingapp.entity.User;
 import com.trade24.tradingapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,12 +18,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("")
-    public User registerNewUser(User user) throws Exception {
-        if (user.getEmail() == "") {
-            throw new Exception("Add validation for already existing email in db");
-        }
+    @PostMapping("")
+    public void addUser(User user) {
 
-        return userService.store(user);
+    }
+
+    public void updateUser(Long id, User user) {
+
+    }
+    public void deleteUser(Long id) {
+
     }
 }
