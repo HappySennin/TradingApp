@@ -3,9 +3,7 @@ package com.trade24.tradingapp.controller;
 import com.trade24.tradingapp.entity.User;
 import com.trade24.tradingapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
@@ -20,13 +18,16 @@ public class UserController {
 
     @PostMapping("")
     public void addUser(User user) {
-
+        this.userService.addUser(user);
     }
 
+    @PutMapping("")
     public void updateUser(Long id, User user) {
-
+        this.userService.updateUser(id, user);
     }
-    public void deleteUser(Long id) {
 
+    @DeleteMapping("")
+    public void deleteUser(Long id) {
+        this.userService.deleteUser(id);
     }
 }
