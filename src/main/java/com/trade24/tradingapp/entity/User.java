@@ -28,6 +28,6 @@ public class User {
     private Date created;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 }
