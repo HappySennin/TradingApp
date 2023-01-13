@@ -3,9 +3,7 @@ package com.trade24.tradingapp.controller;
 import com.trade24.tradingapp.entity.Category;
 import com.trade24.tradingapp.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,19 +23,23 @@ public class CategoryController {
         return categoryService.getAll();
     }
 
+    @GetMapping("/:id")
     Category getById(Long id) {
         return null;
     }
 
-    void addCategory(Category category) {
-
+    @PostMapping("")
+    Category addCategory(Category category) {
+        return this.categoryService.addCategory(category);
     }
 
+    @PutMapping("")
     void updateCategory(Long id, Category category) {
-
+        this.categoryService.updateCategory(id, category);
     }
 
+    @DeleteMapping("")
     void deleteCategory(Long id) {
-
+        this.categoryService.deleteCategory(id);
     }
 }

@@ -41,8 +41,9 @@ public class ItemServiceImpl implements ItemService {
         Item oldItem = this.itemRepository.findById(id).orElse(null);
         if (oldItem != null) {
             this.itemRepository.delete(oldItem);
-            this.itemRepository.save(item);
         }
+
+        this.itemRepository.save(item);
     }
 
     @Override
