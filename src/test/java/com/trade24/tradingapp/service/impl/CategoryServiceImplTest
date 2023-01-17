@@ -19,16 +19,16 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class ItemServiceImplTest {
+class CategoryServiceImplTest {
     @InjectMocks
-    private ItemService itemService;
+    private CategoryService categoryService;
 
     @Mock
-    private ItemRepository itemRepository;
+    private CategoryRepository categoryRepository;
 
     @BeforeEach
     void setUp() {
-        itemService = new ItemServiceImpl(itemRepository);
+        categoryService = new CategoryServiceImplTest(itemRepository);
         MockitoAnnotations.openMocks(this);
     }
 
