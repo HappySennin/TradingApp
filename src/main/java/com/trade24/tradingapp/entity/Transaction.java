@@ -5,30 +5,51 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "transactions")
 @Getter
 @Setter
 public class Transaction {
+
     @Id
-    @GeneratedValue
+    @Column(nullable = false, updatable = false)
+    @SequenceGenerator(
+            name = "primary_sequence",
+            sequenceName = "primary_sequence",
+            allocationSize = 1,
+            initialValue = 10000
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "primary_sequence"
+    )
     private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "requester", nullable = false)
+    @Column(nullable = false)
+    private TransactionStatus status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "requester_id", nullable = false)
     private User requester;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "owner", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Item> requesterItems;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "requester_items",
+            joinColumns = @JoinColumn(name = "transaction_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    private Set<Item> requesterItemsItems;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Item> ownerItems;
-
-    private TransactionStatus status;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "owner_items",
+            joinColumns = @JoinColumn(name = "transaction_id"),
+            inverseJoinColumns = @JoinColumn(name = "item_id")
+    )
+    private Set<Item> ownerItemsItems;
 }
