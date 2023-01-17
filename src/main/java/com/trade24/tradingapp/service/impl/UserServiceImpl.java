@@ -21,7 +21,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void addUser(User user) {
-
+        this.userRepository.save(user);
+        this.addressService.createAddress(user.getAddress());
     }
 
     @Override
@@ -31,6 +32,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-
+        this.userRepository.deleteById(id);
     }
 }
