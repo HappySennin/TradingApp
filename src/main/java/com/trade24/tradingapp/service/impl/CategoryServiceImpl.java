@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    private final CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
     public CategoryServiceImpl (CategoryRepository categoryRepository) {
@@ -27,7 +27,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getById(Long id) {
-        return null;
+        return this.categoryRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -37,11 +37,16 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void updateCategory(Long id, Category category) {
+        Category oldCategory = this.categoryRepository.findById(id).orElse(null);
+        if (oldCategory != null) {
+            this.categoryRepository.delete(oldCategory);
+        }
 
+        this.categoryRepository.save(category);
     }
 
     @Override
     public void deleteCategory(Long id) {
-
+        this.categoryRepository.deleteById(id);
     }
 }

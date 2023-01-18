@@ -1,7 +1,6 @@
 package com.trade24.tradingapp.service.impl;
 
 import com.trade24.tradingapp.entity.Category;
-import com.trade24.tradingapp.entity.User;
 import com.trade24.tradingapp.repository.CategoryRepository;
 import com.trade24.tradingapp.service.CategoryService;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +11,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,13 +26,9 @@ class CategoryServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        categoryService = new CategoryServiceImplTest(itemRepository);
+        categoryService = new CategoryServiceImpl(categoryRepository);
         MockitoAnnotations.openMocks(this);
     }
-
-
-
-
     @Test
     void testGetAllCategory() {
         // given
@@ -44,11 +38,11 @@ class CategoryServiceImplTest {
         category2.setName("Category_2");
         Mockito.when(categoryRepository.findAll()).thenReturn(Arrays.asList(category, category2));
         // when
-        List<Category> categoryList = categoryService.getAllCategory();
+        List<Category> categoryList = categoryService.getAll();
         // then
-        assertEquals(2, category.size());
-        assertTrue(category.stream().anyMatch(i -> i.getName().equals("Category")));
-        assertTrue(category.stream().anyMatch(i -> i.getName().equals("Category_2")));
+        assertEquals(2, categoryList.size());
+        assertTrue(categoryList.stream().anyMatch(c -> c.getName().equals("Category")));
+        assertTrue(categoryList.stream().anyMatch(c -> c.getName().equals("Category_2")));
     }
 
     @Test
@@ -57,9 +51,9 @@ class CategoryServiceImplTest {
         Category category = new Category();
         category.setName("Category");
         category.setId(1L);
-        Mockito.when(categoryRepository.findById(1L)).thenReturn(Optional.of(item));
+        Mockito.when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
         // when
-        Category result = categoryService.getCategory(1L);
+        Category result = categoryService.getById(1L);
         // then
         assertNotNull(result);
         assertEquals("Category", result.getName());
@@ -84,3 +78,4 @@ class CategoryServiceImplTest {
         //then
         verify(categoryRepository, times(1)).deleteById(any());
     }
+}
