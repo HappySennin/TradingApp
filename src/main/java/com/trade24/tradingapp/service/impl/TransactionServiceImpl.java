@@ -1,6 +1,5 @@
 package com.trade24.tradingapp.service.impl;
 
-import com.trade24.tradingapp.entity.Item;
 import com.trade24.tradingapp.entity.Transaction;
 import com.trade24.tradingapp.enums.TransactionStatus;
 import com.trade24.tradingapp.repository.TransactionRepository;
@@ -33,8 +32,18 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     @Override
-    public void addTransaction(Transaction transaction) {
-        this.transactionRepository.save(transaction);
+    public void addTransaction(Transaction transaction) throws Exception {
+        try {
+            if (transaction.getOwner() == null || transaction.getOwnerItemsItems() == null) {
+                throw new Exception("Cant save transaction");
+            }
+            this.transactionRepository.save(transaction);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+
+
+
     }
 
     @Override

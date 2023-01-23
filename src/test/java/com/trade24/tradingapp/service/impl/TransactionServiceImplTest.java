@@ -79,6 +79,19 @@ class TransactionServiceImplTest {
     }
 
     @Test
+    void testGetAllTransactionInvalidIdParam() {
+
+        // GIVEN
+        Mockito.when(transactionRepository.findAll()).thenReturn(Collections.emptyList());
+
+        // when
+        List<Transaction> transactions = transactionService.getUserTransactions(0L);
+
+        // then
+        assertTrue(transactions.isEmpty());
+    }
+
+    @Test
     void testGetAllTransactionsWithRequester() {
         // given
         Transaction transaction = new Transaction();
@@ -128,7 +141,7 @@ class TransactionServiceImplTest {
 
 
     @Test
-    void testAddTransaction() {
+    void testAddTransaction() throws Exception {
         // given
         Transaction transaction = new Transaction();
         Item item = new Item();
@@ -150,6 +163,25 @@ class TransactionServiceImplTest {
 
         //then
         verify(transactionRepository, times(1)).save(any());
+    }
+
+    @Test
+    void testAddInvalidTransaction() {
+        // given
+        Transaction transaction = new Transaction();
+
+        transaction.setOwner(this.user);
+        transaction.setId(1L);
+        transaction.setStatus(TransactionStatus.REQUESTED);
+
+        // when
+        try {
+            transactionService.addTransaction(transaction);
+            fail("It shouldn't get here");
+        } catch(Exception exception) {
+            //then
+            assertEquals(exception.getMessage(), "Cant save transaction");
+        }
     }
 
     @Test
