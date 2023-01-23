@@ -23,8 +23,8 @@ public class CategoryController {
         return categoryService.getAll();
     }
 
-    @GetMapping("/:id")
-    Category getById(Long id) {
+    @GetMapping("/{id}")
+    Category getById(@RequestParam Long id) {
         return null;
     }
 
